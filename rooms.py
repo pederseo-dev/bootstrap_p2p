@@ -88,5 +88,3 @@ class Rooms():
         for room_name in list(self.rooms_TS.keys()):
             if current_time - self.rooms_TS[room_name] > timeout:
                 self.remove_room(room_name)
-
-        

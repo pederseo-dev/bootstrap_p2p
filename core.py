@@ -3,14 +3,7 @@ from rooms import Rooms
 import sys
 import time
 import socket
-
-
-PING = 0
-JOIN_B = 1
-BOOTSTRAP_R = 2
-APP_R = 3
-ROOM_FULL = 4
-PEER_COLLECTOR = 5
+from msg_types import *
     
 class Core:
     def __init__(self, ip='0.0.0.0', port=0, timeout=15, room_size=10):
@@ -24,8 +17,8 @@ class Core:
             try:
                 # extraer mensajes de la cola
                 data, public_addr = self.peer.socket_receive()
-                print(f"Received message: {data} from {public_addr}")
                 msg_type, peers, payload = data
+                print(f'mensaje: {data} desde {public_addr}')
 
                 if msg_type == JOIN_B: self.join_res(peers, payload, public_addr)
 
@@ -59,6 +52,7 @@ class Core:
                 payload=self.rooms.get_peer_id(room_name, public_addr),
                 target_addr=public_addr
             )
+            print('type',BOOTSTRAP_R,'peers',self.rooms.get_all_peers(room_name),'payload',self.rooms.get_peer_id(room_name, public_addr),'target_addr',public_addr)
         
         # Caso 2: La sala NO existe
         else:
@@ -95,9 +89,6 @@ class Core:
                 payload=self.rooms.get_peer_id(room_name, public_addr), 
                 target_addr=public_addr
                 )
-            print(f"Peer {public_addr} reemplazado como entrada en sala '{room_name}'")
-        else:
-            print(f"Sala '{room_name}' no encontrada")
 
     def signal_handler(self, sig, frame):
         self.peer.socket_close()

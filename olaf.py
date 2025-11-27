@@ -1,5 +1,6 @@
 import struct
 import socket
+from msg_types import *
 
 class Olaf:
     """
@@ -63,9 +64,14 @@ class Olaf:
         - payload: bytes o str (si es str se codifica utf-8)
         """
         # [type][peers][payload]
+        if msg_type == BOOTSTRAP_R:
+            payload = Olaf.pack_addr(payload)
+        else:
+            payload = Olaf.pack_payload(payload)
+            
         type_block = struct.pack("!B", int(msg_type))                   # [type] (1B)
         peers_block = Olaf.pack_peers(peers_addr)                       # [peers] ([2B]+N*8B)
-        payload_block = Olaf.pack_payload(payload)                      # [payload] ([4B]+M)
+        payload_block = payload                                         # payload ya está empaquetado
         return type_block + peers_block + payload_block
 
 #--------------------------------------decode------------------------------------------------
@@ -80,6 +86,10 @@ class Olaf:
         msg_type = struct.unpack_from("!B", data, 0)[0]
         offset = 1  # Después del byte de tipo
         peers, offset = Olaf.unpack_peers(data, offset)
-        payload, offset = Olaf.unpack_payload(data, offset)
-        return msg_type, peers, payload
+        if msg_type == BOOTSTRAP_R:
+            payload, offset = Olaf.unpack_addr(data, offset)
+            return msg_type, peers, payload
+        else:
+            payload, offset = Olaf.unpack_payload(data, offset)
+            return msg_type, peers, payload
 

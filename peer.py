@@ -19,7 +19,9 @@ class Peer:
         self.sock.settimeout(timeout) # evita que el socket se bloquee
         try:
             data, addr = self.sock.recvfrom(buffer_size)
-            return self.binary.decode_msg(data), [addr[0], addr[1]]
+            decoded_data = self.binary.decode_msg(data)
+            print('decoded_data',decoded_data)
+            return decoded_data, [addr[0], addr[1]]
         except socket.timeout:
             raise  # Re-lanzar para que el caller sepa que hubo timeout
 
