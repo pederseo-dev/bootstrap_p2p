@@ -1,7 +1,7 @@
 import time
 
 class Rooms():
-    def __init__(self, timeout=15, room_size=10):
+    def __init__(self, timeout, room_size):
         self.rooms_list = {} # {room1:[[ip,port,id],room2:[ip,port,id], ...]}
         self.rooms_TS = {}
         self.timeout = timeout

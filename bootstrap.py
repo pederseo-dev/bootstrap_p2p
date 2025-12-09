@@ -8,12 +8,14 @@ class Bootstrap(Core):
 
     def start(self):
 
+        # deteccion de interrupcion del hilo principal
         signal.signal(signal.SIGINT, self.signal_handler)
 
+        # Verifica y purga las salas con limite de Timeout
         threading.Thread(target=self.purge, daemon=True).start()
 
+        # Gestiona las salas creadas por los peers
         self.handle_connections()
 
-
-b = Bootstrap(ip='127.0.0.1',port=5000)
+b = Bootstrap()
 b.start()

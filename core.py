@@ -6,7 +6,7 @@ import socket
 from msg_types import *
     
 class Core:
-    def __init__(self, ip='0.0.0.0', port=0, timeout=15, room_size=10):
+    def __init__(self, ip, port, timeout, room_size):
         self.timeout = timeout
         self.rooms = Rooms(timeout, room_size)
         self.peer = Peer(ip, port)
@@ -15,7 +15,6 @@ class Core:
         while True:
             print('waiting for messages')
             try:
-                # extraer mensajes de la cola
                 data, public_addr = self.peer.socket_receive()
                 msg_type, peers, payload = data
                 print(f'mensaje: {data} desde {public_addr}')
@@ -93,7 +92,6 @@ class Core:
     def signal_handler(self, sig, frame):
         self.peer.socket_close()
         sys.exit(0)
-
 
     def decode_payload(self, payload: bytes):
         return payload.decode("utf-8")
