@@ -13,7 +13,3 @@ class Bootstrap(Core):
         threading.Thread(target=self.purge, daemon=True).start()
 
         self.handle_connections()
-
-
-b = Bootstrap(ip='127.0.0.1',port=5000)
-b.start()
