@@ -16,6 +16,9 @@ class Bootstrap(Core):
 
         # Gestiona las salas creadas por los peers
         self.handle_connections()
+<<<<<<< HEAD
 
 b = Bootstrap()
 b.start()
+=======
+>>>>>>> 8a567678aafc2d5d6174bb098011350ea60faafa
