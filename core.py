@@ -51,7 +51,7 @@ class Core:
                 payload=self.rooms.get_peer_id(room_name, public_addr),
                 target_addr=public_addr
             )
-            print('type',BOOTSTRAP_R,'peers',self.rooms.get_all_peers(room_name),'payload',self.rooms.get_peer_id(room_name, public_addr),'target_addr',public_addr)
+            #print('type',BOOTSTRAP_R,'peers',self.rooms.get_all_peers(room_name),'payload',self.rooms.get_peer_id(room_name, public_addr),'target_addr',public_addr)
         
         # Caso 2: La sala NO existe
         else:
@@ -100,4 +100,5 @@ class Core:
         while True:
             print('purging')
             self.rooms.purge_inactive_rooms(self.timeout)
+
             time.sleep(5)
