@@ -98,7 +98,8 @@ class Core:
 
     def purge(self):
         while True:
-            print('purging')
+            #print('purging')
             self.rooms.purge_inactive_rooms(self.timeout)
 
             time.sleep(5)
+
