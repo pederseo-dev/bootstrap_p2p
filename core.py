@@ -12,12 +12,12 @@ class Core:
         self.peer = Peer(ip, port)
     
     def handle_connections(self):
+        print('waiting for messages')
         while True:
-            print('waiting for messages')
             try:
                 data, public_addr = self.peer.socket_receive()
                 msg_type, peers, payload = data
-                print(f'mensaje: {data} desde {public_addr}')
+                #print(f'mensaje: {data} desde {public_addr}')
 
                 if msg_type == JOIN_B: self.join_res(peers, payload, public_addr)
 
