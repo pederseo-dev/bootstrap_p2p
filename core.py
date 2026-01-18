@@ -6,10 +6,11 @@ import socket
 from msg_types import *
     
 class Core:
-    def __init__(self, ip, port, timeout, room_size):
+    def __init__(self, ip, port, timeout, room_size, debug):
         self.timeout = timeout
         self.rooms = Rooms(timeout, room_size)
         self.peer = Peer(ip, port)
+        self.debug = debug
     
     def handle_connections(self):
         print('waiting for messages')

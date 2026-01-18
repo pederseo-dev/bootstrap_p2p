@@ -3,8 +3,8 @@ import threading
 import signal
 
 class Bootstrap(Core):
-    def __init__(self, ip='0.0.0.0', port=0, timeout=15, room_size=10):
-        super().__init__(ip, port, timeout, room_size)
+    def __init__(self, ip='0.0.0.0', port=0, timeout=15, room_size=10, debug=False):
+        super().__init__(ip, port, timeout, room_size, debug)
 
     def start(self):
 

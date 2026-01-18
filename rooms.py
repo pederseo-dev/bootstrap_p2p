@@ -18,7 +18,6 @@ class Rooms():
         # Verificar si el peer ya está en la sala
         for peer in self.rooms_list[room_name]:
             if peer[0] == peer_addr[0] and peer[1] == peer_addr[1]:
-                print(f"Peer {peer_addr} ya existe en sala '{room_name}'")
                 return False  # Indicar que no se agregó (ya existía)
 
         ip_port_id = self.set_id(peer_addr)
