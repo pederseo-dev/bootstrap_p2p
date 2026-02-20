@@ -18,7 +18,7 @@ class Core:
             try:
                 data, public_addr = self.peer.socket_receive()
                 msg_type, peers, payload = data
-                #print(f'mensaje: {data} desde {public_addr}')
+                print(f'mensaje: {data} desde {public_addr}')
 
                 if msg_type == JOIN_B: self.join_res(peers, payload, public_addr)
 
@@ -52,7 +52,7 @@ class Core:
                 payload=self.rooms.get_peer_id(room_name, public_addr),
                 target_addr=public_addr
             )
-            #print('type',BOOTSTRAP_R,'peers',self.rooms.get_all_peers(room_name),'payload',self.rooms.get_peer_id(room_name, public_addr),'target_addr',public_addr)
+            print('type',BOOTSTRAP_R,'peers',self.rooms.get_all_peers(room_name),'payload',self.rooms.get_peer_id(room_name, public_addr),'target_addr',public_addr)
         
         # Caso 2: La sala NO existe
         else:
@@ -99,8 +99,9 @@ class Core:
 
     def purge(self):
         while True:
-            #print('purging')
+            print('purging')
             self.rooms.purge_inactive_rooms(self.timeout)
 
             time.sleep(5)
+
 
